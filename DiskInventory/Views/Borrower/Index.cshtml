@@ -1,0 +1,29 @@
+﻿@model List<Borrower>
+
+@{
+    ViewBag.Title = "Borrower Manager";
+}
+
+<h1 class="text-center p-3">@ViewBag.Title</h1>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Borrower ID</th>
+            <th>Borrower first name</th>
+            <th>Borrower last name</th>
+            <th>Borrower Phone Number</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var borrower in Model)
+        {
+            <tr>
+                <td>@borrower.BorrowerId</td>
+                <td>@borrower.BorrowerFname</td>
+                <td>@borrower.BorrowerLname</td>
+                <td>@borrower.BorrowerPhoneNum</td>
+            </tr>
+        }
+    </tbody>
+</table>
