@@ -1,0 +1,61 @@
+﻿@model Disk
+@{
+    string title = ViewBag.Action + " Disk";
+    ViewBag.Title = title;
+}
+
+<h2>@ViewBag.Title</h2>
+<form asp-action="Edit" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="CdName">Disk Name</label>
+        <input asp-for="CdName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="ReleaseDate">Release Date</label>
+        <input asp-for="ReleaseDate" type="date" class="form-control" />
+    </div>
+    <div>
+        <label asp-for="GenreId">Genre</label>
+        <select asp-for="GenreId" class="form-control">
+            <option value="select a type">select a type</option>
+            @foreach (GenreType g in ViewBag.GenreTypes)
+            {
+                <option value="@g.GenreId">@g.Description</option>
+            }
+        </select>
+    </div>
+    <div>
+        <label asp-for="ArtistId">ArtistID</label>
+        <select asp-for="ArtistId" class="form-control">
+            <option value="select a type">select an Artist ID</option>
+            @foreach (Artist d in ViewBag.ArtistIds)
+            {
+                <option value="@d.ArtistId">@d.ArtistId</option>
+            }
+        </select>
+    </div>
+    <div>
+        <label asp-for="DiskTypeId">Disk Type</label>
+        <select asp-for="DiskTypeId" class="form-control">
+            <option value="select a disk type">select a disk type</option>
+            @foreach (DiskType t in ViewBag.DiskTypes)
+            {
+                <option value="@t.DiskTypeId">@t.Description</option>
+            }
+        </select>
+    </div>
+    <div>
+        <label asp-for="StatusId">Status Type</label>
+        <select asp-for="StatusId" class="form-control">
+            <option value="select a status type">select a status type</option>
+            @foreach (Status s in ViewBag.Statuses)
+            {
+                <option value="@s.StatusId">@s.Description</option>
+            }
+        </select>
+    </div>
+    <input type="hidden" asp-for="CdId" />
+    <button type="submit" class="btn btn-primary p-2">@ViewBag.Action</button>
+    <a asp-controller="Disk" asp-action="Index" class="btn btn-primary p-2">Cancel</a>
+</form>
