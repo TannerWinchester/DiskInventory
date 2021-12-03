@@ -5,25 +5,32 @@
 }
 
 <h1 class="text-center p-3">@ViewBag.Title</h1>
+<a asp-controller="Borrower" asp-action="Add">Add a Borrower</a>
 
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>Borrower ID</th>
-            <th>Borrower first name</th>
-            <th>Borrower last name</th>
+            <th>Borrower Last name</th>
+            <th>Borrower First name</th>
             <th>Borrower Phone Number</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var borrower in Model)
         {
-            <tr>
-                <td>@borrower.BorrowerId</td>
-                <td>@borrower.BorrowerFname</td>
-                <td>@borrower.BorrowerLname</td>
-                <td>@borrower.BorrowerPhoneNum</td>
-            </tr>
+        <tr>
+            <td>@borrower.BorrowerId</td>
+            <td>@borrower.BorrowerLname</td>
+            <td>@borrower.BorrowerFname</td>
+            <td>@borrower.BorrowerPhoneNum</td>
+            <td>
+                <a asp-controller="Borrower" asp-action="Edit" asp-route-id="@borrower.BorrowerId">Edit</a>
+            </td>
+            <td>
+                <a asp-controller="Borrower" asp-action="Delete" asp-route-id="@borrower.BorrowerId">Delete</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

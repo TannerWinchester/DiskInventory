@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DiskInventory.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DiskInventory.Controllers
 {
@@ -37,13 +38,17 @@ namespace DiskInventory.Controllers
             {
                 if (disk.CdId == 0)
                 {
-                    context.Disks.Add(disk);
+                    //context.Disks.Add(disk);
+                    //@cdName char(60), @releaseDate date, @artistID int, @genreID int, @statusID int, @diskTypeID int
+                    context.Database.ExecuteSqlRaw("execute sp_ins_disk @p0, @p1, @p2, @p3, @p4, @p5", parameters: new[] { disk.CdName, disk.ReleaseDate.ToString(), disk.ArtistId.ToString(), disk.GenreId.ToString(), disk.StatusId.ToString(), disk.DiskTypeId.ToString() });
                 }
                 else
                 {
-                    context.Disks.Update(disk); 
+                    //context.Disks.Update(disk); 
+                    //@cdID int, @cdName char(60), @releaseDate date, @artistID int, @genreID int, @statusID int, @diskTypeID int
+                    context.Database.ExecuteSqlRaw("execute sp_upd_disk @p0, @p1, @p2, @p3, @p4, @p5, @p6", parameters: new[] { disk.CdId.ToString(), disk.CdName, disk.ReleaseDate.ToString(), disk.ArtistId.ToString(), disk.GenreId.ToString(), disk.StatusId.ToString(), disk.DiskTypeId.ToString() });
                 }
-                context.SaveChanges();
+                //context.SaveChanges();
                 return RedirectToAction("Index", "Disk");
             }
             else
@@ -65,8 +70,9 @@ namespace DiskInventory.Controllers
         [HttpPost]
         public IActionResult Delete(Disk disk)
         {
-            context.Disks.Remove(disk);
-            context.SaveChanges();
+            //context.Disks.Remove(disk);
+            context.Database.ExecuteSqlRaw("execute sp_del_disk @p0", parameters: new[] { disk.CdId.ToString() });
+            //context.SaveChanges();
             return RedirectToAction("Index", "Disk");
         }
         [HttpGet]
@@ -78,6 +84,7 @@ namespace DiskInventory.Controllers
             ViewBag.GenreTypes = context.GenreTypes.OrderBy(g => g.Description).ToList();
             ViewBag.ArtistIds = context.Artists.OrderBy(d => d.ArtistId).ToList();
             Disk disk = new Disk();
+            disk.ReleaseDate = DateTime.Today; // todays date default
             return View("Edit", disk);
         }
 
