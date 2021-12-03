@@ -78,6 +78,7 @@ namespace DiskInventory.Controllers
             ViewBag.GenreTypes = context.GenreTypes.OrderBy(g => g.Description).ToList();
             ViewBag.ArtistIds = context.Artists.OrderBy(d => d.ArtistId).ToList();
             Disk disk = new Disk();
+            disk.ReleaseDate = DateTime.Today; // todays date default
             return View("Edit", disk);
         }
 

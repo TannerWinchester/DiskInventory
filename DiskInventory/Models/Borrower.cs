@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -13,8 +14,12 @@ namespace DiskInventory.Models
         }
 
         public int BorrowerId { get; set; }
-        public string BorrowerFname { get; set; }
+        [Required]
         public string BorrowerLname { get; set; }
+        [Required]
+        public string BorrowerFname { get; set; }
+
+        [Required]
         public string BorrowerPhoneNum { get; set; }
 
         public virtual ICollection<DiskHasBorrower> DiskHasBorrowers { get; set; }
