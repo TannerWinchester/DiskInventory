@@ -60,7 +60,6 @@ namespace DiskInventory.Controllers
                     // 	@diskBorrower int, @borrowerID int, @cdID int, @borrowedDate date, @returnedDate date = NULL
                     context.Database.ExecuteSqlRaw("execute sp_upd_diskHasBorrower @p0, @p1, @p2, @p3, @p4", parameters: new[] { diskHasborrower.DiskBorrower.ToString(), diskHasborrower.BorrowerId.ToString(), diskHasborrower.CdId.ToString(), diskHasborrower.BorrowedDate.ToString(), returnedDate });
                 }
-                //context.SaveChanges();
                 return RedirectToAction("Index", "DiskHasBorrower");
             }
             else
